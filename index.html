@@ -9,7 +9,7 @@
   
   <div id="app" class="container">
     <div class="categories columns is-multiline">
-      <menu-category v-for="cat in categories" v-bind:items="getCatItems(cat.title)" v-bind:title="cat.title" v-bind:key="cat.id"></menu-category>
+      <menu-category v-for="cat in categories" v-bind:items="getCatItems(cat.id)" v-bind:title="cat.title" v-bind:key="cat.id"></menu-category>
     </div>
   </div>
 
