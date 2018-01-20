@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu App</title>
+  <link rel="stylesheet" href="dist/css/app.css">
+</head>
+<body>
+  
+  <div id="app" class="container">
+    <div class="categories columns is-multiline">
+      <menu-category v-for="cat in categories" v-bind:items="getCatItems(cat.title)" v-bind:title="cat.title" v-bind:key="cat.id"></menu-category>
+    </div>
+  </div>
+
+  <script src="dist/js/app.js"></script>
+</body>
+</html>
