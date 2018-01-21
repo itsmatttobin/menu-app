@@ -1,2 +1,2 @@
-# Vue Boilerplate
-A simple Vue application boilerplate using Laravel Mix
+# Menu App
+A menu / order application built with Vue
