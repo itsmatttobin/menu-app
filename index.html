@@ -2,17 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Menu App</title>
+  <title>Vicarage Road Chippy</title>
   <link rel="stylesheet" href="dist/css/app.css">
 </head>
 <body>
-  
-  <div id="app" class="container">
-    <div class="categories columns is-multiline">
-      <menu-category v-for="cat in categories" v-bind:items="getCatItems(cat.id)" v-bind:title="cat.title" v-bind:key="cat.id"></menu-category>
+
+  <section class="hero is-info has-text-centered">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Vicarage Road Chippy</h1>
+        <h2 class="subtitle">Place your order now!</h2>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <section class="section">
+    <!-- Main app container -->
+    <div id="app" class="container">
+      <div class="columns">
+        <div class="column is-two-thirds">
+          <div class="categories columns is-multiline">
+            <menu-category v-for="cat in categories" v-bind:items="getCatItems(cat.id)" v-bind:title="cat.title" v-bind:key="cat.id"></menu-category>
+          </div>
+        </div>
+        <div class="column is-one-third">
+          <div class="order-items">
+            <order-item v-for="(item, key) in order" v-bind:item="item" v-bind:key="key"></order-item>
+          </div>
+
+          <hr>
+
+          <div class="box">
+            <h4 class="is-size-6">Order Total: <span class="is-size-5 has-text-weight-semibold">{{ orderTotal }}</span></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>An app built with <a href="https://vuejs.org/" class="has-text-primary">Vue.js</a></p>
+      </div>
+    </div>
+  </footer>
 
   <script src="dist/js/app.js"></script>
+
 </body>
 </html>
