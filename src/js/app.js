@@ -2,7 +2,6 @@ import Vue from 'vue';
 import { menuItems, menuCategories } from './sample-data.js';
 import MenuCategory from './components/MenuCategory.vue';
 import OrderItem from './components/OrderItem.vue';
-// import store from './store.js';
 
 window.Event = new Vue();
 
@@ -15,15 +14,15 @@ new Vue({
   data: {
     categories: [],
     items: [],
-    order: {}
+    order: []
   },
   computed: {
     // Calculate order total
     orderTotal() {
       let total = 0;
 
-      Object.keys(this.order).forEach(key => {
-        const itemPrice = this.order[key].price * this.order[key].quantity;
+      this.order.forEach(i => {
+        const itemPrice = i.price * i.quantity;
         total += itemPrice;
       });
 
@@ -57,26 +56,32 @@ new Vue({
     this.items = menuItems;
 
     // Get order from local storage
-    this.order = JSON.parse(localStorage.getItem('vrc-order')) || {}
+    this.order = JSON.parse(localStorage.getItem('vrc-order')) || []
 
     // Add item to order - listen for emitted event
     Event.$on('addToOrder', item => {
-      const order = {...this.order};
+      // Check if there is an existing item
+      const existingItem = this.order.findIndex((e) => {
+        return e.id === item.id;
+      });
 
-      order[item.id] = item;
-      order[item.id].quantity = order[item.id].quantity + 1 || 1;
-
-      this.order = order;
+      // If there is then increase quantity
+      // Otherwise add the item to order with a quantity of 1
+      if(existingItem >= 0) {
+        this.order[existingItem].quantity = this.order[existingItem].quantity + 1;
+      } else {
+        item.quantity = 1;
+        this.order.push(item);
+      }
     });
 
     // Remove item from order - listen for emitted event
     Event.$on('removeFromOrder', id => {
-      const order = {...this.order};
+      const item = this.order.findIndex((e) => {
+        return e.id === id;
+      });
 
-      order[id].quantity = 0;
-      delete order[id];
-
-      this.order = order;
+      this.order.splice(item, 1);
     });
   }
 });
